@@ -19,7 +19,7 @@
 #define VERMAJ 1
 #define VERMIN 0
 #define VERFIX	 1
-#define MYBUILDNUMBER 5
+#define MYBUILDNUMBER 6
 
 #define VERMAJSTR	STR( VERMAJ )
 #define VERMINSTR	STR( VERMIN )
