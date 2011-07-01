@@ -23,6 +23,7 @@ void CvpnDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_IMAGE, m_picCtrl);
 	DDX_Control(pDX, IDC_EDITLOGIN, m_login);
 	DDX_Control(pDX, IDC_EDITPASSWORD, m_password);
+	DDX_Control(pDX, IDC_SKIPDELETE, m_skipdeleteconnection);
 }
 
 BEGIN_MESSAGE_MAP(CvpnDlg, CDialogEx)
@@ -78,6 +79,7 @@ BOOL CvpnDlg::OnInitDialog()
 	GetDlgItem(IDCREATE)->SetFont(&fnt16);
 	GetDlgItem(IDEXIT)->SetFont(&fnt16);
 	GetDlgItem(IDC_CHECKPASSWORD)->SetFont(&fnt16);
+	GetDlgItem(IDC_SKIPDELETE)->SetFont(&fnt16);
 	GetDlgItem(IDC_GROUP)->SetFont(&fnt16);
 
 	m_CopyRightLink.m_bAlwaysUnderlineText = FALSE; 
@@ -151,15 +153,18 @@ DWORD CvpnDlg::CreateRas()
 			return dwErr;
         }
 
-		for (i = 0; i < dwEntries; i++)
+		if (!m_skipdeleteconnection.GetState()) 
 		{
-			lpszEntry = LPSTR(pRasEntryName[i].szEntryName);
-			if (lpszEntry != LPSTR("EPAM")) 
+			for (i = 0; i < dwEntries; i++)
 			{
-				dwErr = RasDeleteEntry(NULL, lpszEntry); // Clean up: delete the new entry
-				if (dwErr != ERROR_SUCCESS)
+				lpszEntry = LPSTR(pRasEntryName[i].szEntryName);
+				if (lpszEntry != LPSTR("EPAM")) 
 				{
-					return dwErr;
+					dwErr = RasDeleteEntry(NULL, lpszEntry); // Clean up: delete the new entry
+					if (dwErr != ERROR_SUCCESS)
+					{
+						return dwErr;
+					}
 				}
 			}
 		}

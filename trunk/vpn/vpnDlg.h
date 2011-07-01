@@ -72,6 +72,7 @@ public:
 	CEdit m_password;
 	CString m_strOldLogin;
 	CString m_strOldPwd;
+	CButton m_skipdeleteconnection;
 	
 	CvpnDlg(CWnd* pParent = NULL);	// constructor
 	DWORD CreateRas(); 
