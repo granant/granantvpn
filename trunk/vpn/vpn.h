@@ -10,6 +10,8 @@
 
 #include "resource.h"		
 #include <Windowsx.h>
+#include <Winuser.h>
+
 
 
 class CvpnApp : public CWinApp
@@ -32,6 +34,7 @@ public:
 	virtual BOOL OnAnotherInstanceMessage(LPMSG pMsg);
 	virtual BOOL OnCloseMessage(LPMSG pMsg);
 	virtual BOOL PreTranslateMessage( LPMSG pMsg );
+	virtual BOOL IsUserAdmin();
 
 	DECLARE_MESSAGE_MAP()
 };
